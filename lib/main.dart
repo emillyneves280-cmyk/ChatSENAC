@@ -23,6 +23,7 @@ class Login extends StatelessWidget{
           children: [
             FlutterLogo(size: 18),
             Text("ChatSENAC"),
+            SizedBox(height: 32,),
           ],
         ),
         // Titulos
@@ -34,7 +35,7 @@ class Login extends StatelessWidget{
         TextField(),
         Text("Senha", style: Tipografia.subtitulo,),
         TextField(),
-        InkWell(child: Text("Esqueceu s senha?", textAlign: TextAlign.right,)),
+        InkWell(child: Text("Esqueceu a senha?", textAlign: TextAlign.right,)),
         ElevatedButton(onPressed: null, child: Text("Entrar")),
         Text("Ou", textAlign: TextAlign.center,),
         ElevatedButton(onPressed: null, child: Text("Continuar com o Google")),
