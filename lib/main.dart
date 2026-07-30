@@ -1,23 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:primeiro_app/paginas/cadastro.dart';
 import 'package:primeiro_app/paginas/login.dart';
-import 'package:primeiro_app/utilitarios/tipografia.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false, // Tópico 2: Remove a faixa de debug
-      home: Scaffold(
-        backgroundColor: Colors.white,
-        body: SafeArea(child: Login()),
-      ),
-    );
+    return MaterialApp(home: Login());
   }
 }
-
-
