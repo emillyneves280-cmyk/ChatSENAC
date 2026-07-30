@@ -34,8 +34,10 @@ class Login extends StatelessWidget {
             // Tópico 4: Estilização do input
             decoration: InputDecoration(
               hintText: "exemplo@gmail.com",
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8)),
+              contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 16, vertical: 12),
             ),
           ),
           const SizedBox(height: 16), // Tópico 3
