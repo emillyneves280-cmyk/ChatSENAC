@@ -1,41 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:primeiro_app/paginas/cadastro.dart';
+import 'package:primeiro_app/paginas/dashboard.dart';
 
 import '../utilitarios/tipografia.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
+  const Login({super.key});
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  final  emailController = TextEditingController();
+  final  senhaController = TextEditingController();
+
+  void fazerLogin() {
+    if (emailController.text!= "teste@gmail.com" || senhaController.text!= "123456"){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text( "Email/ou senhas estão inválidos!")));
+      return;
+    }
+    Navigator.push(context, MaterialPageRoute(builder: (builder) => Dashboard()));
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Logo e Nome do App
               Row(
                 children: [
                   FlutterLogo(size: 18),
-                  const SizedBox(width: 8), // Tópico 3: Espaço horizontal
+                  const SizedBox(width: 8),
                   Text("ChatSENAC"),
                 ],
               ),
-              const SizedBox(height: 32), // Tópico 3
-              // Títulos
+              const SizedBox(height: 32),
+
               Text("Entre na sua conta", style: Tipografia.h1),
-              const SizedBox(height: 12), // Tópico 3
+              const SizedBox(height: 12),
+
               Text(
                 "Coloque o seu email e senha para logar",
                 style: Tipografia.subtitulo,
               ),
-              const SizedBox(height: 32), // Tópico 3
-              // Campo de Email
+              const SizedBox(height: 32),
+
               Text("Email"),
-              const SizedBox(height: 4), // Tópico 3
+              const SizedBox(height: 4),
+
               TextField(
-                // Tópico 4: Estilização do input
+                controller: emailController,
                 decoration: InputDecoration(
                   hintText: "exemplo@gmail.com",
                   border: OutlineInputBorder(
@@ -47,27 +65,30 @@ class Login extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 16), // Tópico 3
-              // Campo de Senha
+
+              const SizedBox(height: 16),
+
               Text("Senha"),
-              const SizedBox(height: 4), // Tópico 3
+              const SizedBox(height: 4),
+
               TextField(
-                // Tópico 5: Oculta a senha
+                controller: senhaController,
                 obscureText: true,
                 decoration: InputDecoration(
                   hintText: "••••••••",
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(10),
                   ),
+                  suffixIcon: Icon(Icons.visibility_off),
                   contentPadding: const EdgeInsets.symmetric(
                     horizontal: 16,
                     vertical: 12,
                   ),
-                  suffixIcon: Icon(Icons.visibility_off),
                 ),
               ),
-              const SizedBox(height: 12), // Tópico 3
-              // Esqueceu a senha
+
+              const SizedBox(height: 12),
+
               InkWell(
                 child: Text(
                   "Esqueceu a senha?",
@@ -75,89 +96,117 @@ class Login extends StatelessWidget {
                   textAlign: TextAlign.right,
                 ),
               ),
-              const SizedBox(height: 24), // Tópico 3
-              // Botão Entrar Principal
+
+              const SizedBox(height: 24),
+
               SizedBox(
                 height: 48,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (emailController.text == "teste@gmail.com" &&
+                        senhaController.text == "123456") {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Dashboard(),
+                        ),
+                            (route) => false,
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Usuário ou senha inválidos"),
+                        ),
+                      );
+                    }
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                     foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadiusGeometry.circular(10),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     ),
                     elevation: 0,
                   ),
                   child: const Text(
                     "Entrar",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
-              const SizedBox(height: 16), // Tópico 3
+
+              const SizedBox(height: 16),
 
               const Text(
-                "Ou",
+                "ou",
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.grey),
               ),
-              const SizedBox(height: 16), // Tópico 3
 
-              // Tópico 6: Botão Google com OutlinedButton e altura 48
+              const SizedBox(height: 16),
+
               SizedBox(
                 height: 48,
                 child: OutlinedButton(
                   onPressed: () {},
                   style: OutlinedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadiusGeometry.circular(10),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     ),
                     side: const BorderSide(color: Colors.grey),
                   ),
-
                   child: Row(
-                    spacing: 10,
                     mainAxisAlignment: MainAxisAlignment.center,
+                    spacing: 10,
                     children: [
-                      Image.asset("assets/imagens/google-icon.png", height: 18.0),
+                      Image.asset(
+                        "assets/imagens/google-icon.png",
+                        height: 18,
+                      ),
                       Text(
                         "Continuar com o Google",
-                        style: TextStyle(color: Colors.black87),
+                        style: Tipografia.subtitulo,
                       ),
                     ],
                   ),
                 ),
               ),
-              const SizedBox(height: 14),
+
               const SizedBox(height: 12),
 
-              // Tópico 6: Botão Facebook com OutlinedButton e altura 48
               SizedBox(
                 height: 48,
                 child: OutlinedButton(
                   onPressed: () {},
                   style: OutlinedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadiusGeometry.circular(10),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     ),
                     side: const BorderSide(color: Colors.grey),
                   ),
                   child: Row(
-                    spacing: 10,
                     mainAxisAlignment: MainAxisAlignment.center,
+                    spacing: 10,
                     children: [
-                      Image.asset("assets/imagens/facebook-icon.png", height: 18.0),
+                      Image.asset(
+                        "assets/imagens/facebook-icon.png",
+                        height: 18,
+                      ),
                       Text(
                         "Continuar com o Facebook",
-                        style: TextStyle(color: Colors.black87),
+                        style: Tipografia.subtitulo,
+                        textAlign: TextAlign.center,
                       ),
                     ],
                   ),
                 ),
               ),
-              const SizedBox(height: 54), // Tópico 3
-              // Rodapé Cadastre-se
+
+              const SizedBox(height: 54),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -167,12 +216,14 @@ class Login extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (BuildContext build) => Cadastro(),
+                          builder: (build) => Cadastro(),
                         ),
                       );
                     },
-                    // TÓPICO 7 APLICADO AQUI: Correção ortográfica de "Cdastre-se" para "Cadastre-se"
-                    child: Text("Cadastre-se", style: Tipografia.link),
+                    child: Text(
+                      "Cadastre-se",
+                      style: Tipografia.link,
+                    ),
                   ),
                 ],
               ),
