@@ -12,16 +12,23 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final  emailController = TextEditingController();
-  final  senhaController = TextEditingController();
+  final emailController = TextEditingController();
+  final senhaController = TextEditingController();
 
   void fazerLogin() {
-    if (emailController.text!= "teste@gmail.com" || senhaController.text!= "123456"){
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text( "Email/ou senhas estão inválidos!")));
+    if (emailController.text != "teste@gmail.com" ||
+        senhaController.text != "123456") {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Email/ou senhas estão inválidos!")),
+      );
       return;
     }
-    Navigator.push(context, MaterialPageRoute(builder: (builder) => Dashboard()));
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (build) => Dashboard()),
+    );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,7 +117,7 @@ class _LoginState extends State<Login> {
                         MaterialPageRoute(
                           builder: (context) => const Dashboard(),
                         ),
-                            (route) => false,
+                        (route) => false,
                       );
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -130,10 +137,7 @@ class _LoginState extends State<Login> {
                   ),
                   child: const Text(
                     "Entrar",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -162,10 +166,7 @@ class _LoginState extends State<Login> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     spacing: 10,
                     children: [
-                      Image.asset(
-                        "assets/imagens/google-icon.png",
-                        height: 18,
-                      ),
+                      Image.asset("assets/imagens/google-icon.png", height: 18),
                       Text(
                         "Continuar com o Google",
                         style: Tipografia.subtitulo,
@@ -215,15 +216,10 @@ class _LoginState extends State<Login> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (build) => Cadastro(),
-                        ),
+                        MaterialPageRoute(builder: (build) => Cadastro()),
                       );
                     },
-                    child: Text(
-                      "Cadastre-se",
-                      style: Tipografia.link,
-                    ),
+                    child: Text("Cadastre-se", style: Tipografia.link),
                   ),
                 ],
               ),

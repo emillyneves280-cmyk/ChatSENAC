@@ -10,7 +10,7 @@ class Dashboard extends StatelessWidget {
         title: const Text('ChatSENAC'),
       ),
       body: const Center(
-        child: Text('ChatSENAC', style: TextStyle(fontSize: 24),),
+        child: Text('', style: TextStyle(fontSize: 24),),
       ),
     );
   }
