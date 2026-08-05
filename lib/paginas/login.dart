@@ -17,7 +17,7 @@ class _LoginState extends State<Login> {
 
   void fazerLogin() {
     if (emailController.text != "teste@gmail.com" ||
-        senhaController.text != "123456") {
+        senhaController.text != "git ") {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Email/ou senhas estão inválidos!")),
       );
