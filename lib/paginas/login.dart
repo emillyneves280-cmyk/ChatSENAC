@@ -1,7 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:primeiro_app/paginas/cadastro.dart';
 import 'package:primeiro_app/paginas/dashboard.dart';
-
+import 'package:http/http.dart' as http;
 import '../utilitarios/tipografia.dart';
 
 class Login extends StatefulWidget {
@@ -15,17 +17,30 @@ class _LoginState extends State<Login> {
   final emailController = TextEditingController();
   final senhaController = TextEditingController();
 
-  void fazerLogin() {
-    if (emailController.text != "teste@gmail.com" ||
-        senhaController.text != "git ") {
+  Future<void> fazerLogin() async {
+    var url = Uri.http("10.112.4.33", "login");
+    var resposta = await http.post(
+      url,
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body:jsonEncode({ 'email': emailController.text, 'senha': senhaController.text }),
+    );
+
+    if (resposta.statusCode != 200) {
+      var dados = jsonDecode(resposta.body);
+
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Email/ou senhas estão inválidos!")),
+        SnackBar(content: Text("${dados["message"]}")),
       );
       return;
     }
-    Navigator.pushReplacement(
+
+    Navigator.push(
       context,
-      MaterialPageRoute(builder: (build) => Dashboard()),
+      MaterialPageRoute(
+        builder: (builder) => Dashboard(),
+      ),
     );
   }
 
@@ -109,24 +124,7 @@ class _LoginState extends State<Login> {
               SizedBox(
                 height: 48,
                 child: ElevatedButton(
-                  onPressed: () {
-                    if (emailController.text == "teste@gmail.com" &&
-                        senhaController.text == "123456") {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const Dashboard(),
-                        ),
-                        (route) => false,
-                      );
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("Usuário ou senha inválidos"),
-                        ),
-                      );
-                    }
-                  },
+                  onPressed: fazerLogin,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                     foregroundColor: Colors.white,
